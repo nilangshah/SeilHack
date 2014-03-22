@@ -76,6 +76,28 @@
 
    });
 
+   // var jsonData = {
+   //  "categories":["TotalPower","PCPower","PeakPower"],
+   //  "week":1,
+   //  "date":"22/03/2014",
+   //  "data":[
+   //          {
+   //              "lab":"lab1",
+   //              "values": [49.9, 71.5, 106.4]
+    
+   //          },
+   //          {
+   //              "lab":"lab2",
+   //              "values": [32.9, 12.5, 601.4]
+    
+   //          },
+   //          {
+   //              "lab":"lab3",
+   //              "values": [49.9, 71.5, 106.4]
+    
+   //          }
+   //  ] 
+   // };
 
 });
 

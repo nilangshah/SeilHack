@@ -531,101 +531,74 @@
    <script src="highcharts/js/highcharts.js"></script>
    <script src="highcharts/js/modules/exporting.js"></script>
    <script type="text/javascript">
-   $(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Lab Per capita consumption'
-            },
-            subtitle: {
-                text: 'Source: SEIL IIT,Bombay'
-            },
-            xAxis: {
-                categories: [
-                    'Condition1',
-                    'Condition2',
-                    'Condition3'
-                ]
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Per capita power consumption (WH)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Lab1',
-                data: [49.9, 71.5, 106.4]
-    
-            }, {
-                name: 'Lab2',
-                data: [83.6, 78.8, 98.5]
-    
-            }, {
-                name: 'Lab3',
-                data: [48.9, 38.8, 39.3]
-    
-            },{
-                name: 'Lab4',
-                data: [49.9, 71.5, 106.4]
-    
-            }, {
-                name: 'Lab5',
-                data: [83.6, 78.8, 98.5]
-    
-            }, {
-                name: 'Lab6',
-                data: [48.9, 38.8, 39.3]
-    
-            }]
-        });
-    });
    
+   var jsonData1 = {
+    "categories":["TotalPower","PCPower","PeakPower"],
+    "week":1,
+    "date":"22/03/2014",
+    "unit":"KwH",
+    "data":[
+            {
+                "lab":"lab1",
+                "values": [49.9, 71.5, 106.4]
+    
+            },
+            {
+                "lab":"lab2",
+                "values": [32.9, 12.5, 601.4]
+    
+            },
+            {
+                "lab":"lab3",
+                "values": [49.9, 71.5, 106.4]
+    
+            }
+    ] 
+   };
+
    function update_contest_section(target){
       if($(target).attr('id')=='stats'){
+         
+         $.getJSON("data/data.json", function(jsonData) {
+         var conditions = [];
+         var map = {};
+         var values = [];
+         console.log(jsonData)
+         $.each(jsonData.categories,function(entryIndex, entry) {
+               conditions[entryIndex]= this;
+         });
+         $.each(jsonData.data,function(entryIndex, entry) {
+               map[this.lab]=this.values;
+         });
+         index = 0;
+         $.each( map, function( key, value ) {
+            values[index] = {name:key,data:value};
+            index = index + 1;
+         });
          $('#container').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Lab Per capita consumption'
+                text: 'Ongoing contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
             },
             subtitle: {
                 text: 'Source: SEIL IIT,Bombay'
             },
             xAxis: {
-                categories: [
-                    'Condition1',
-                    'Condition2',
-                    'Condition3'
-                ]
+
+                categories: conditions
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Per capita power consumption (WH)'
+                    text: 'Per Capita Power Consumption ('+jsonData.unit+')'
                 }
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    '<td style="padding:0"><b>{point.y:.1f} '+jsonData.unit+'</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -636,32 +609,11 @@
                     borderWidth: 0
                 }
             },
-            series: [{
-                name: 'Lab1',
-                data: [49.9, 71.5, 106.4]
-    
-            }, {
-                name: 'Lab2',
-                data: [83.6, 78.8, 98.5]
-    
-            }, {
-                name: 'Lab3',
-                data: [48.9, 38.8, 39.3]
-    
-            },{
-                name: 'Lab4',
-                data: [49.9, 71.5, 106.4]
-    
-            }, {
-                name: 'Lab5',
-                data: [83.6, 78.8, 98.5]
-    
-            }, {
-                name: 'Lab6',
-                data: [48.9, 38.8, 39.3]
-    
-            }]
+            series: values
         });
+         });
+         
+         
       }else if($(target).attr('id')=='score'){
       $('#container').highcharts({
             chart: {
