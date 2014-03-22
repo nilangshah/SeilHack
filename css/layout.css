@@ -943,6 +943,40 @@ ul#vnav li.active a { color: #11ABB0; }
    text-align: left;
 }
 
+
+/* post-nav */
+.post .post-vnav {
+   margin: 24px 0;
+   padding: 30px 0 0 0;
+   border-top: 1px solid #E0E0E0;
+   font: 16px/30px opensans-light, sans-serif;
+}
+.post .post-vnav li {
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   width: 49%;
+   line-height: 30px;
+}
+.post .post-vnav li a { color: #a3a3a3; }
+.post .post-vnav li a:hover { color: #333; }
+.post .post-vnav li strong {
+   font: 15px/30px opensans-bold, sans-serif;
+   text-transform: uppercase;
+   color: #11ABB0;
+   letter-spacing: 1px;
+   display: block;
+}
+.post .post-vnav li.next {
+   float: right;
+   text-align: right;
+}
+.post .post-vnav li.prev {
+   float: left;
+   text-align: left;
+}
+
+
 /* Comments
 /* ------------------------------------------------------------------ */
 #comments {
