@@ -1,0 +1,20 @@
+{
+	"winners":[
+		{
+			"lab":"Lab1",
+			"winnings":10
+		},
+		{
+			"lab":"Lab2",
+			"winnings":40
+		},
+		{
+			"lab":"Lab3",
+			"winnings":4
+		},
+		{
+			"lab":"Lab4",
+			"winnings":2
+		}
+	]
+}

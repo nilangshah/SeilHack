@@ -331,14 +331,13 @@
             <div class="client-author">
                <img src="images/client-img.png" alt="" />
                <div class="name">
-                  <p>Nabeel Naseer<span>Developer</span></p>
+                  <p>Nabeel Nasir<span>Developer</span></p>
                </div>
             </div>
 
-		      <!-- <div class="client-cite">
-			      <p>Phasellus - ut augue at sapien bibendum bibendum amet magna. Aenean condimentum, lacus sit amet luctus lobortis,
-               enim tellus ultrices elit, amet consequat enim elit noneas.</p>
-		      </div> -->
+		      <div class="client-cite">
+			      <p>This is perhaps the best site</p>
+		      </div>
 
          </div>
 
@@ -529,36 +528,12 @@
    <!-- Contest page related -->
 
    <script src="highcharts/js/highcharts.js"></script>
+   <script src="highcharts/js/modules/drilldown.js"></script>
    <script src="highcharts/js/modules/exporting.js"></script>
    <script type="text/javascript">
-   
-   var jsonData1 = {
-    "categories":["TotalPower","PCPower","PeakPower"],
-    "week":1,
-    "date":"22/03/2014",
-    "unit":"KwH",
-    "data":[
-            {
-                "lab":"lab1",
-                "values": [49.9, 71.5, 106.4]
-    
-            },
-            {
-                "lab":"lab2",
-                "values": [32.9, 12.5, 601.4]
-    
-            },
-            {
-                "lab":"lab3",
-                "values": [49.9, 71.5, 106.4]
-    
-            }
-    ] 
-   };
 
    function update_contest_section(target){
       if($(target).attr('id')=='stats'){
-         
          $.getJSON("data/data.json", function(jsonData) {
          var conditions = [];
          var map = {};
@@ -575,6 +550,7 @@
             values[index] = {name:key,data:value};
             index = index + 1;
          });
+         console.log(values)
          $('#container').highcharts({
             chart: {
                 type: 'column'
@@ -610,72 +586,78 @@
                 }
             },
             series: values
-        });
+            });
+         });   
+      }else if($(target).attr('id')=='score'){   
+      $.getJSON("data/data.json", function(jsonData) {
+         var labs = [];
+         var scores = {};
+         var values = [];
+         console.log(jsonData)
+         $.each(jsonData.data,function(entryIndex, entry) {
+               labs[entryIndex] = this.lab;
+               scores[this.lab] = this.score;
          });
-         
-         
-      }else if($(target).attr('id')=='score'){
-      $('#container').highcharts({
+         console.log(labs);
+         console.log(scores);
+         index = 0;
+         $.each( scores, function( key, value ) {
+            values[index] = {name:key,data:[value]};
+            index = index + 1;
+         });
+         console.log(values);
+         $('#container').highcharts({
             chart: {
-                type: 'area',
-                spacingBottom: 30
+                type: 'column'
             },
             title: {
-                text: 'Fruit consumption *'
+                text: 'Ongoing contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
             },
             subtitle: {
-                text: '* Jane\'s banana consumption is unknown',
-                floating: true,
-                align: 'right',
-                verticalAlign: 'bottom',
-                y: 15
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 150,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF'
+                text: 'Source: SEIL IIT,Bombay'
             },
             xAxis: {
-                categories: ['Apples', 'Pears', 'Oranges', 'Bananas', 'Grapes', 'Plums', 'Strawberries', 'Raspberries']
+
+                categories: labs
             },
             yAxis: {
+                min: 0,
                 title: {
-                    text: 'Y-Axis'
-                },
-                labels: {
-                    formatter: function() {
-                        return this.value;
-                    }
+                    text: 'Score for each lab ('+jsonData.unit+')'
                 }
             },
             tooltip: {
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    this.x +': '+ this.y;
-                }
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} '+jsonData.unit+'</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
             },
             plotOptions: {
-                area: {
-                    fillOpacity: 0.5
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
                 }
             },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'John',
-                data: [0, 1, 4, 4, 5, 2, 3, 7]
-            }, {
-                name: 'Jane',
-                data: [1, 0, 3, null, 3, 1, 2, 1]
-            }]
-        });
-      }else{
+            series: values
+            });
+         });   
+      }else if($(target).attr('id')=='winner'){
+         $.getJSON("data/winner.json", function(jsonData) {
+         var victories = {}
+         var values = []
+         console.log(jsonData)
+         $.each(jsonData.winners,function(entryIndex, entry) {
+               victories[this.lab] = this.winnings;
+         });
+         console.log(victories);
+         index = 0;
+         $.each(victories, function( key, value ) {
+            values[index] = [key,value];
+            index = index + 1;
+         });
+         console.log(values);
          $('#container').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -683,7 +665,7 @@
             plotShadow: false
         },
         title: {
-            text: 'Browser market shares at a specific website, 2010'
+            text: 'No. of victories for each lab'
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -696,28 +678,17 @@
                     enabled: true,
                     color: '#000000',
                     connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    format: '<b>{point.name}</b>: {y}'
                 }
             }
         },
         series: [{
             type: 'pie',
-            name: 'Browser share',
-            data: [
-                ['Firefox',   45.0],
-                ['IE',       26.8],
-                {
-                    name: 'Chrome',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
-                },
-                ['Safari',    8.5],
-                ['Opera',     6.2],
-                ['Others',   0.7]
-            ]
+            name: 'victories',
+            data: values
         }]
     });
+         });
       }
       return true
    };
