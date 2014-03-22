@@ -23,13 +23,13 @@
 
    // main directions
    map = new GMaps({
-      el: '#map', lat: 14.553533, lng: 121.052124, zoom: 14, zoomControl : true,
+      el: '#map', lat: 19.130547, lng: 72.915897, zoom: 18, zoomControl : true,
       zoomControlOpt: { style : 'SMALL', position: 'TOP_LEFT' }, panControl : false, scrollwheel: false
    });
 
    // add address markers
-   map.addMarker({ lat: 14.552891, lng: 121.051815, title: 'Eco Tower',
-   infoWindow: { content: '<p>You can add your address 1 here</p>' } });
+   map.addMarker({ lat: 19.130547, lng: 72.915897, title: 'SEIL Lab',
+   infoWindow: { content: '<p>Smart Energy Informatics lab</p>' } });
 
 /*----------------------------------------------------*/
 /*	contact form
@@ -59,7 +59,7 @@
                $('#image-loader').fadeOut();
                $('#message-warning').hide();
                $('#contactForm').fadeOut();
-               $('#message-success').fadeIn();   
+              $( "#message-success" ).fadeIn();   
             }
             // There was an error
             else {
