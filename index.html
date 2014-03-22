@@ -336,7 +336,7 @@
             </div>
 
 		      <div class="client-cite">
-			      <p>This is perhaps the best site</p>
+			      <p>This is perhaps the best site I have</p>
 		      </div>
 
          </div>
@@ -688,6 +688,38 @@
             data: values
         }]
     });
+         });
+      }else{
+         $.getJSON("data/data.json", function(jsonData) {
+         var conditions = [];
+         var labs = [];
+         $.each(jsonData.categories,function(entryIndex, entry) {
+               conditions[entryIndex]= this;
+         });
+         $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Column chart with negative values'
+            },
+            xAxis: {
+                categories: conditions
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Lab1',
+                data: [5, 3, 4]
+            }, {
+                name: 'Lab2',
+                data: [2, -2, -3]
+            }, {
+                name: 'Lab3',
+                data: [3, 4, 4]
+            }]
+        });
          });
       }
       return true
