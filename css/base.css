@@ -605,6 +605,18 @@ legend span {
    float: left;
 }
 
+.colleft {
+   position: relative;
+   padding: 0 18px;
+   float: left;
+}
+
+.colrem {
+   position: relative;
+   padding: 0 18px;
+   float: left;
+}
+
 /* row clearing */
 .row:before,
 .row:after {

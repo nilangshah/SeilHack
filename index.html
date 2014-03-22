@@ -56,7 +56,7 @@
 	               <li><a href="#intro">Home</a></li>
 	               <li><a href="#services">Contest</a></li>
 	               <li><a href="#portfolio">DashBoard</a></li>
-	           <li><a href="#about">About Us</a></li>
+	               <li><a href="#about">About Us</a></li>
                   <li><a href="#contact">Contact</a></li>
                </ul>
 
@@ -117,73 +117,29 @@
 
          <div class="col one-third">
             <h2>Contest</h2>
-            <p class="desc">Our list of participatoters.</p>
-         </div>
-
-         <div class="col two-thirds">
-            <div class="intro">
-             <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-              deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
-              </p>
-            </div>
          </div>
 
       </div>
 
       <div class="row">
+      <div class="services.wrapper">
 
-         <div class="services-wrapper">
+         <div class="colleft">
+            <ul id="vnav" class="vnav">
+               <li><a id='stats' href="#services" onclick="return update_contest_section(this);">Stats</a></li>
+               <li><a id='score' href="#services" onclick="return update_contest_section(this);">Score</a></li>
+               <li><a id='winner' href="#services" onclick="return update_contest_section(this);">Contest Winners</a></li>
+            </ul> 
+         </div>
 
-            <div class="col">
-               <h2><i class="icon-desktop"></i>Webdesign</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et molestias iusto odio dignissimos.</p>
-            </div>
+         <div class="colrem">
+            <div id="container" style="min-width: 60.0%"></div>
+         </div>
 
-            <div class="col">
-               <h2><i class="icon-star"></i>Branding</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio dignissimos.</p>
-            </div>
+      </div>
+      </div>
 
-            <div class="col m-first">
-               <h2><i class="icon-camera"></i>Photography</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et molestias quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio dignissimos.</p>
-            </div>
-
-            <div class="col first">
-               <h2><i class="icon-globe"></i>Web Development</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio molestias dignissimos.</p>
-            </div>
-
-            <div class="col m-first">
-               <h2><i class=" icon-list-alt"></i>User Interface</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio dignissimos.</p>
-            </div>
-
-            <div class="col">
-               <h2><i class="icon-print"></i>Printing</h2>
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti molestias quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio dignissimos.</p>
-            </div>
-
-         </div> <!-- Services-Wrapper End -->
-
-      </div> <!--end row -->
-
-   </section> <!-- Services Section End -->
-
-
+   </section>
    <!-- Portfolio Section
    ================================================== -->
    <section id="portfolio">
@@ -194,243 +150,15 @@
             <h2>DashBoard</h2>
             <p class="desc">Check out our latest projects.</p>
 
-            <p class="intro">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+            <!-- <p class="intro">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
             deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
             At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
-            </p>
+            </p> -->
 
          </div>
       </div>
 
-      <div class="row">
-
-		   <!-- Portfolio Wrapper -->
-		   <div id="portfolio-wrapper">
-
-			   <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-01"><img src="images/portfolio/cosmic-sneakers.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Cosmic Sneakers</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-02"><img src="images/portfolio/milk-splash.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Milk Splash</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-03"><img src="images/portfolio/eve.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Eve</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-04"><img src="images/portfolio/sneaker-splash.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Sneaker Splash</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-05"><img src="images/portfolio/judah.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Judah</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-06"><img src="images/portfolio/vector-flower.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Vector Flower</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-07"><img src="images/portfolio/clock.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Clock</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-            <div class="col portfolio-item">
-               <div class="item-wrap">
-					   <a href="#" data-reveal-id="modal-08"><img src="images/portfolio/fields.jpg" alt=""/></a>
-					   <div class="portfolio-item-meta">
-						   <h5><a href="#">Fields</a></h5>
-					   </div>
-               </div>
-			   </div>
-
-		   </div> <!-- Portfolio Wrapper End -->
-
-
-		</div> <!-- End Row -->
-
-
-      <!-- Modal Popup
-	   =========================================================== -->
-
-      <!-- modal-01 -->
-	   <div id="modal-01" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-cosmic-sneakers.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>The Cosmic Sneakers</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Branding, Web Design</span>
-		   </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div><!-- modal-01 End -->
-
-      <!-- modal-02 -->
-	   <div id="modal-02" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-milk-splash.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Milk Splash</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Branding, Web Design</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-02 End -->
-
-      <!-- modal-03 -->
-	   <div id="modal-03" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-eve.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Eve</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Photography, Branding</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-03 End -->
-
-      <!-- modal-04 -->
-	   <div id="modal-04" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-sneaker-splash.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Sneaker Splash</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Photography, Branding</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-04 End -->
-
-      <!-- modal-05 -->
-	   <div id="modal-05" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-judah.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Judah</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Photography, Web Design</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-05 End -->
-
-      <!-- modal-06 -->
-	   <div id="modal-06" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-vector-flower.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Vector Flower</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Branding, Web Design</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-06 End -->
-
-      <!-- modal-07 -->
-	   <div id="modal-07" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-clock.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Clock</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Branding, Web Design</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-07 End -->
-
-      <!-- modal-08 -->
-	   <div id="modal-08" class="reveal-modal">
-
-		   <img class="scale-with-grid" src="images/portfolio/modals/m-fields.jpg" alt="" />
-
-		   <div class="description-box">
-			   <h4>Fields</h4>
-			   <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-            <span class="categories"><i class="icon-tag"></i>Photography</span>
-         </div>
-
-         <div class="link-box">
-            <a href="http://www.behance.net">Details</a>
-		      <a class="close-reveal-modal">Close</a>
-         </div>
-
-	   </div> <!-- modal-08 End -->
+   
 
    </section> <!-- Portfolio End -->
 
@@ -446,12 +174,12 @@
             <p class="desc">This is what we are.</p>
          </div>
 
-         <div class="col three-fourths">
+         <!-- <div class="col three-fourths">
              <p class="intro">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
              nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
              cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
              ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-         </div>
+         </div> -->
 
       </div>
 
@@ -459,7 +187,7 @@
          <div class="col full"><h3>Our Work Process.</h3></div>
       </div>
 
-      <div class="row process-wrap">
+      <!-- <div class="row process-wrap">
 
          <div class="col">
             <h4>Explore.</h4>
@@ -493,7 +221,7 @@
             nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
             cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit.
             </p>
-			</div>
+			</div> -->
 
       </div> <!-- Process Wrap End -->
 
@@ -510,7 +238,7 @@
             <img src="images/team/team-img-01.jpg" alt=""/>
 
             <div class"member-name">
-               <h5>Naruto Uzumaki</h5>
+               <h5>Mayur kale</h5>
                <span>Director</span>
             </div>
 
@@ -526,10 +254,10 @@
 
          <div class="col one-fourth">
 
-            <img src="images/team/team-img-02.jpg" alt=""/>
+            <img src="images/team/team-img-01.jpg" alt=""/>
 
             <div class"member-name">
-               <h5>Sakura Haruno</h5>
+               <h5>Nikhilkumar Jadhav</h5>
                <span>Director</span>
             </div>
 
@@ -545,10 +273,10 @@
 
          <div class="col one-fourth">
 
-            <img src="images/team/team-img-03.jpg" alt=""/>
+            <img src="images/team/team-img-01.jpg" alt=""/>
 
             <div class"member-name">
-               <h5>Sasuke Uchiha</h5>
+               <h5>Nilang Shah</h5>
                <span>Senior Web Designer</span>
             </div>
 
@@ -564,10 +292,10 @@
 
          <div class="col one-fourth">
 
-            <img src="images/team/team-img-03.jpg" alt=""/>
+            <img src="images/team/team-img-01.jpg" alt=""/>
 
             <div class"member-name">
-               <h5>Shikamaru Nara</h5>
+               <h5>Karan P</h5>
                <span>Web Designer</span>
             </div>
 
@@ -600,14 +328,14 @@
             <div class="client-author">
                <img src="images/client-img.png" alt="" />
                <div class="name">
-                  <p>John Doe<span>Designer</span></p>
+                  <p>Nabeel Naseer<span>Developer</span></p>
                </div>
             </div>
 
-		      <div class="client-cite">
+		      <!-- <div class="client-cite">
 			      <p>Phasellus - ut augue at sapien bibendum bibendum amet magna. Aenean condimentum, lacus sit amet luctus lobortis,
                enim tellus ultrices elit, amet consequat enim elit noneas.</p>
-		      </div>
+		      </div> -->
 
          </div>
 
@@ -616,16 +344,16 @@
             <div class="client-author">
                <img src="images/client-img.png" alt="" />
                <div class="name">
-                  <p>Michael Smith<span>CEO</span></p>
+                  <p>Amandeep Chugh<span>Entrepreneur</span></p>
                </div>
             </div>
 
-		      <div class="client-cite">
+		     <!--  <div class="client-cite">
 			      <p>Nascetur augue hac platea enim, egestas pulvinar vut. Pulvinar cum, ac eu, tristie
                acus duis in dictumst non integer. Elit, sed scelerisque odio tortor, sed platea dis.
                Aenean condimentum, lacus sit amet luctus lobortis,
                enim tellus ultrices elit.</p>
-		      </div>
+		      </div> -->
 
          </div>
 
@@ -785,6 +513,8 @@
    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
    <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
 
+
+
    <script src="js/scrollspy.js"></script>
    <script src="js/jquery.flexslider.js"></script>
    <script src="js/jquery.reveal.js"></script>
@@ -793,6 +523,250 @@
    <script src="js/init.js"></script>
    <script src="js/smoothscrolling.js"></script>
 
+   <!-- Contest page related -->
+
+   <script src="highcharts/js/highcharts.js"></script>
+   <script src="highcharts/js/modules/exporting.js"></script>
+   <script type="text/javascript">
+   $(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Lab Per capita consumption'
+            },
+            subtitle: {
+                text: 'Source: SEIL IIT,Bombay'
+            },
+            xAxis: {
+                categories: [
+                    'Condition1',
+                    'Condition2',
+                    'Condition3'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Per capita power consumption (WH)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Lab1',
+                data: [49.9, 71.5, 106.4]
+    
+            }, {
+                name: 'Lab2',
+                data: [83.6, 78.8, 98.5]
+    
+            }, {
+                name: 'Lab3',
+                data: [48.9, 38.8, 39.3]
+    
+            },{
+                name: 'Lab4',
+                data: [49.9, 71.5, 106.4]
+    
+            }, {
+                name: 'Lab5',
+                data: [83.6, 78.8, 98.5]
+    
+            }, {
+                name: 'Lab6',
+                data: [48.9, 38.8, 39.3]
+    
+            }]
+        });
+    });
+   
+   function update_contest_section(target){
+      if($(target).attr('id')=='stats'){
+         $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Lab Per capita consumption'
+            },
+            subtitle: {
+                text: 'Source: SEIL IIT,Bombay'
+            },
+            xAxis: {
+                categories: [
+                    'Condition1',
+                    'Condition2',
+                    'Condition3'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Per capita power consumption (WH)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Lab1',
+                data: [49.9, 71.5, 106.4]
+    
+            }, {
+                name: 'Lab2',
+                data: [83.6, 78.8, 98.5]
+    
+            }, {
+                name: 'Lab3',
+                data: [48.9, 38.8, 39.3]
+    
+            },{
+                name: 'Lab4',
+                data: [49.9, 71.5, 106.4]
+    
+            }, {
+                name: 'Lab5',
+                data: [83.6, 78.8, 98.5]
+    
+            }, {
+                name: 'Lab6',
+                data: [48.9, 38.8, 39.3]
+    
+            }]
+        });
+      }else if($(target).attr('id')=='score'){
+      $('#container').highcharts({
+            chart: {
+                type: 'area',
+                spacingBottom: 30
+            },
+            title: {
+                text: 'Fruit consumption *'
+            },
+            subtitle: {
+                text: '* Jane\'s banana consumption is unknown',
+                floating: true,
+                align: 'right',
+                verticalAlign: 'bottom',
+                y: 15
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 150,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF'
+            },
+            xAxis: {
+                categories: ['Apples', 'Pears', 'Oranges', 'Bananas', 'Grapes', 'Plums', 'Strawberries', 'Raspberries']
+            },
+            yAxis: {
+                title: {
+                    text: 'Y-Axis'
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value;
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.series.name +'</b><br/>'+
+                    this.x +': '+ this.y;
+                }
+            },
+            plotOptions: {
+                area: {
+                    fillOpacity: 0.5
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'John',
+                data: [0, 1, 4, 4, 5, 2, 3, 7]
+            }, {
+                name: 'Jane',
+                data: [1, 0, 3, null, 3, 1, 2, 1]
+            }]
+        });
+      }else{
+         $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2010'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['Firefox',   45.0],
+                ['IE',       26.8],
+                {
+                    name: 'Chrome',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['Safari',    8.5],
+                ['Opera',     6.2],
+                ['Others',   0.7]
+            ]
+        }]
+    });
+      }
+      return true
+   };
+</script>
 </body>
 
 </html>

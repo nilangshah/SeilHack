@@ -284,8 +284,12 @@ ul#nav li.active a { color: #11ABB0; }
 #services .section-head .intro { color: #57606B; }
 
 .services-wrapper { margin-top: 42px; }
-.services-wrapper .col {
-   width: 33.33333%;
+.services-wrapper .colleft {
+   width: 20.0%;
+   margin-bottom: 30px;
+}
+.services-wrapper .colrem {
+   width: 90.0%;
    margin-bottom: 30px;
 }
 .services-wrapper h2 {
