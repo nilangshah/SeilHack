@@ -6,7 +6,11 @@
 
  jQuery(document).ready(function() {
 
-
+	 Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+	});
 	$('#stats').click()
 	$('#dropdown').ddslick({
     width: 300,
