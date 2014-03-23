@@ -145,7 +145,7 @@
          </div>
 
          <div class="colrem">
-            <div id="container" style="min-width: 60.0%"></div>
+            <div id="container" style="min-width: 55.0%"></div>
          </div>
 
       </div>
@@ -162,38 +162,30 @@
             <h2>DashBoard</h2>
             <p class="desc">Check out Interesting analysis.</p>
 
-
-	<div class="colleft">
+      <div class="row">
+	
+         <div class="colleft">
              
             <nav id="nav-wrap" style="background: url('images/k-opacity-70.png') repeat scroll 0% 0% transparent;">
+              
                <ul id="vnav" class="vnav">
                   <li class="active"><a id='appdata' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Appliance Data</a></li>
                   <li><a id='kresit' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Kresit Data</a></li>
                   <li><a id='realtime' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Realtime Plot</a></li>
                   
                </ul> 
+            
             </nav>
+      
          </div>
 
-	 
-
-	 <div class="colrem">
+	        <div class="colrem">
 	
-            <div id="container1" style="min-width: 60.0%"></div>
-         </div>
+               <div id="container1" style="min-width: 55.0%"></div>
 
+            </div>
 
-
-
-            <!-- <p class="intro">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-            deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
-         </p> -->
-
-      </div>
-   </div>
-
-   
+       </div>
 
 </section> <!-- Portfolio End -->
 
@@ -568,8 +560,167 @@
 function update_dashboard_section(target){
     $(target).parent().parent().children().removeClass('active')
     $(target).parent().addClass('active')
-
-}
+    if($(target).attr('id')=='realtime'){
+      var chart;
+      var maxPowerConsumption = 100;
+      var minPowerConsumption = 77.38;
+        $('#container1').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function() {
+    
+                        // set up the updating of the chart each second
+                        var series = this.series[0];
+                        setInterval(function() {
+                            var x = (new Date()).getTime(), // current time
+                                y = Math.random()*5+minPowerConsumption
+                            series.addPoint([x, y], true, true);
+                        }, 1000);
+                    }
+                }
+            },
+            title: {
+                text: 'Realtime Energy Consumption'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Energy Consumption',
+                data: (function() {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                    for (i = -19; i <= 0; i++) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()*5+minPowerConsumption
+                        }); 
+                    }
+                    return data;
+                })()
+            }]
+        });
+    }else if($(target).attr('id')=='appdata'){
+      var dataFile = "data/appliances.json"; 
+      $.getJSON(dataFile, function(jsonData) {
+         var days = [];
+         var map = {};
+         var averages = [];
+         var tmap = {};
+         var values = [];
+         var pieValues = [];
+         $.each(jsonData.days,function(entryIndex, entry) {
+            days[entryIndex]= this;
+         });
+         console.log(days)
+         $.each(jsonData.components,function(entryIndex, entry) {
+            map[this.name]=this.values;
+            tmap[this.name]=this.total;
+         });
+         console.log(map)
+         console.log(tmap)
+         index = 0;
+         $.each( map, function( key, value ) {
+            values[index] = {type:'column',name:key,data:value};
+            index = index + 1;
+         });
+         averages=jsonData.averages;
+         values[index] = 
+         {
+                type: 'spline',
+                name: 'Average',
+                data: averages,
+                marker: {
+                  lineWidth: 2,
+                  lineColor: Highcharts.getOptions().colors[3],
+                  fillColor: 'white'
+               }
+         }
+         index = index + 1
+         // new Index
+         var newIndex = 0
+         $.each( tmap, function( key, value ) {
+            pieValues[newIndex] = {name:key,y:value,color:Highcharts.getOptions().colors[newIndex]};
+            newIndex = newIndex + 1;
+         });
+         console.log(pieValues);
+         values[index] = {
+                type: 'pie',
+                name: 'Total consumption',
+                data: pieValues,
+                center: [20, 0],
+                size: 100,
+                showInLegend: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+         $('#container1').highcharts({
+            chart: {
+            },
+            title: {
+                text: 'Appliances chart'
+            },
+            xAxis: {
+                categories: days
+            },
+            tooltip: {
+                formatter: function() {
+                    var s;
+                    if (this.point.name) { // the pie chart
+                        s = ''+
+                            this.point.name +': '+ this.y +' KwH';
+                    } else {
+                        s = ''+
+                            this.x  +': '+ this.y;
+                    }
+                    return s;
+                }
+            },
+            labels: {
+                items: [{
+                    html: 'Total appliance share',
+                    style: {
+                        left: '100px',
+                        top: '0px',
+                        color: 'black'
+                    }
+                }]
+            },
+            series: values
+        });
+      });   
+    }
+ }
 
 
 
@@ -770,6 +921,15 @@ function update_dashboard_section(target){
 }
 return true
 };
+
+ $(document).ready(function() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+   });
+});
+
 
 $('#dropDown').on('change',function(){
   console.log('#vnav .active a');
