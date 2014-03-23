@@ -1,5 +1,5 @@
 {
-    "categories":["PC Energy","Total Power","Peak Power"],
+    "categories":["PC Energy","Total Energy Consumption","Peak Power"],
     "week":2,
     "date":"13/01/2014",
     "unit":"KwH",
@@ -7,22 +7,27 @@
     {
 	"lab":"Lab1",
 	"values":[33997.4582148636, 116616.53125, 6063.96923828],
-	"score":44.9345750266
+	"score":44.9345750266,
+    "cvalues":[4]
     },
     {
     "lab":"Lab2",
     "values":[23997.4582148636, 96616.53125, 4063.96923828],
-    "score":24.9345750266
+    "score":24.9345750266,
+    "cvalues":[-9]
     },
     {
     "lab":"Lab3",
     "values":[43997.4582148636, 216616.53125, 8063.96923828],
-    "score":64.9345750266
+    "score":64.9345750266,
+    "cvalues":[11]
     },
     {
     "lab":"Lab4",
     "values":[63997.4582148636, 316616.53125, 10063.96923828],
-    "score":84.9345750266
+    "score":84.9345750266,
+    "cvalues":[14]
     }
-    ]
+    ],
+    "defaulters":["Lab3","Lab4"]
 }
