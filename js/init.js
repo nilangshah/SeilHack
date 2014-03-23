@@ -7,6 +7,17 @@
  jQuery(document).ready(function() {
 
 
+	$('#stats').click()
+	$('#dropdown').ddslick({
+    data: ddData,
+    width: 300,
+    imagePosition: "left",
+    selectText: "Select your favorite social network",
+    onSelected: function (data) {
+        console.log(data);
+    }
+});
+
 /*----------------------------------------------------*/
 /*	Flexslider
 /*----------------------------------------------------*/
@@ -14,6 +25,9 @@
       animation: 'fade',
       controlNav: false,
    });
+
+
+
 
 /*----------------------------------------------------*/
 /*	gmaps
@@ -98,6 +112,9 @@
    //          }
    //  ] 
    // };
+
+
+
 
 });
 

@@ -125,9 +125,17 @@
       <div class="services.wrapper">
 
          <div class="colleft">
-	<nav id="nav-wrap">
+		<div id="dropDownDiv" >
+		<select id="dropDown" onclick="update_contest_section()" style="min-width:158px;">
+			<option value="1">Week1</option>
+			<option value="2">Week2</option>
+			<option value="3">Week3</option>
+			<option value="4">Week4</option>
+		</select>		
+		</div>
+	<nav id="nav-wrap" style="background: url('images/k-opacity-70.png') repeat scroll 0% 0% transparent;">
             <ul id="vnav" class="vnav">
-               <li><a id='stats' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Stats</a></li>
+               <li class="active"><a id='stats' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Stats</a></li>
                <li><a id='score' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Score</a></li>
                <li><a id='winner' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Contest Winners</a></li>
 		 <li><a id='defaulter' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Defaulter List</a></li>
@@ -518,6 +526,7 @@
 
 
    <script src="js/scrollspy.js"></script>
+	<script src="js/jquery.ddslick.min.js"></script>
    <script src="js/jquery.flexslider.js"></script>
    <script src="js/jquery.reveal.js"></script>
    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
@@ -533,7 +542,13 @@
    <script type="text/javascript">
 
    function update_contest_section(target){
+
+	$(target).parent().parent().children().removeClass('active')
+	$(target).parent().addClass('active')
+
       if($(target).attr('id')=='stats'){
+	 var week = $.("#dropDown").val();
+	 console.log(week);
          $.getJSON("data/data.json", function(jsonData) {
          var conditions = [];
          var map = {};
