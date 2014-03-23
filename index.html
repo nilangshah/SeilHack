@@ -546,10 +546,11 @@
 	$(target).parent().parent().children().removeClass('active')
 	$(target).parent().addClass('active')
 	var week = $("#dropDown").val();
-	 console.log(week);
+	console.log(week);
+   var dataFile = "data/jw"+week+".json";
       if($(target).attr('id')=='stats'){
 	 
-         $.getJSON("data/data.json", function(jsonData) {
+         $.getJSON(dataFile, function(jsonData) {
          var conditions = [];
          var map = {};
          var values = [];
@@ -604,7 +605,7 @@
             });
          });   
       }else if($(target).attr('id')=='score'){   
-      $.getJSON("data/data.json", function(jsonData) {
+      $.getJSON(dataFile, function(jsonData) {
          var labs = [];
          var scores = {};
          var values = [];
