@@ -707,12 +707,14 @@ function update_dashboard_section(target){
 
             },
 
+	
             tooltip: {
+		
                 formatter: function() {
                     var s;
                     if (this.point.name) { // the pie chart
                         s = ''+
-                            this.point.name +': '+ this.point.percentage +' %';
+                            this.point.name +': '+ this.point.percentage.toFixed(2) +' %';
                     } else {
                         s = ''+
                             this.x  +': '+ this.y;
@@ -908,7 +910,7 @@ function update_dashboard_section(target){
        },
        xAxis: {
 
-          categories: labs
+          categories: ["Labs"]
        },
        yAxis: {
           min: 0,
@@ -1029,15 +1031,15 @@ function update_dashboard_section(target){
 	table.append(tr);
 	var tbody = $("<tbody></tbody>");
 	var tr = $("<tr></tr>");
-	var td = "<td>GNL</td><td>19.7</td><td>41.631</td><td>287.71</td><td>15.746</td>";
+	var td = "<td>ASL</td><td>19.7</td><td>41.631</td><td>287.71</td><td>15.746</td>";
 	tr.append(td);
 	tbody.append(tr);
 	var tr = $("<tr></tr>");
-	var td = "<td>ASL</td><td>14.5</td><td>35.63</td><td>227.73</td><td>10.74</td>";
+	var td = "<td>CSL</td><td>14.5</td><td>35.63</td><td>227.73</td><td>10.74</td>";
 	tr.append(td);
 	tbody.append(tr);
 	var tr = $("<tr></tr>");
-	var td = "<td>Infolab</td><td>11.2</td><td>27.631</td><td>207.74</td><td>13.74</td>";
+	var td = "<td>MoocLab</td><td>11.2</td><td>27.631</td><td>207.74</td><td>13.74</td>";
 	tr.append(td);
 	tbody.append(tr);
 	table.append(tbody);

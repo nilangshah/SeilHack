@@ -5,15 +5,15 @@
 			"winnings":8
 		},
 		{
-			"lab":"Info",
+			"lab":"GNL",
 			"winnings":3
 		},
 		{
-			"lab":"GNL",
+			"lab":"ASL",
 			"winnings":1
 		},
 		{
-			"lab":"ASL",
+			"lab":"InfoLab",
 			"winnings":5
 		}
 	]
