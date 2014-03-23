@@ -1,8 +1,8 @@
 {
-    "categories":["PC Energy","Total Energy Consumption","Peak Power"],
+    "categories":["PerCapita Energy","Total Energy Consumption","Peak Power"],
     "week":2,
     "date":"13/01/2014",
-    "unit":"KwH",
+    "unit":"kWh",
     "data":[
     {
 	"lab":"Lab1",

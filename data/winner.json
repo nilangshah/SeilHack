@@ -1,20 +1,20 @@
 {
 	"winners":[
 		{
-			"lab":"Lab1",
-			"winnings":10
+			"lab":"SEIL",
+			"winnings":8
 		},
 		{
-			"lab":"Lab2",
-			"winnings":40
+			"lab":"Info",
+			"winnings":3
 		},
 		{
-			"lab":"Lab3",
-			"winnings":4
+			"lab":"GNL",
+			"winnings":1
 		},
 		{
-			"lab":"Lab4",
-			"winnings":2
+			"lab":"ASL",
+			"winnings":5
 		}
 	]
 }

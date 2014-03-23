@@ -20,6 +20,9 @@
    ================================================== -->
    <link rel="stylesheet" href="css/base.css">
    <link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -127,19 +130,22 @@
             <div class="colleft">
               <div id="dropDownDiv" >
                  <select id="dropDown"  style="min-width:158px;">
-                  <option value="1">Week1</option>
-                  <option value="2">Week2</option>
-                  <option value="3">Week3</option>
-                  <option value="4">Week4</option>
+                  <option value="1">Week1-6/1</option>
+                  <option value="2">Week2-13/1</option>
+                  <option value="3">Week3-20/1</option>
+                  <option value="4" selected="selected">Week4-27/1</option>
                </select>		
             </div>
+	<br>
             <nav id="nav-wrap" style="background: url('images/k-opacity-70.png') repeat scroll 0% 0% transparent;">
                <ul id="vnav" class="vnav">
                   <li class="active"><a id='stats' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Stats</a></li>
-                  <li><a id='score' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Score</a></li>
-                  <li><a id='winner' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Contest Winners</a></li>
+                  <li><a id='score' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Performance</a></li>
+                  
                   <li><a id='comparision' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Comparision</a></li>
                   <li><a id='defaulters' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Defaulters</a></li>
+	<li></li>
+	<li><a id='winner' style="font-size: 17px;" href="#services" onclick="return update_contest_section(this);">Contest Winners</a></li>
                </ul> 
             </nav>
          </div>
@@ -548,6 +554,7 @@
    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
    <script src="js/gmaps.js"></script>
    <script src="js/init.js"></script>
+	<script src="js/jquery.stickyheader.js"></script>
    <script src="js/smoothscrolling.js"></script>
 
    <!-- Contest page related -->
@@ -591,7 +598,7 @@ function update_dashboard_section(target){
             },
             yAxis: {
                 title: {
-                    text: 'Value'
+                    text: 'Power consumption(kW)'
                 },
                 plotLines: [{
                     value: 0,
@@ -693,6 +700,13 @@ function update_dashboard_section(target){
             xAxis: {
                 categories: days
             },
+	            yAxis: {
+			 title: {
+                text: 'Energy consumption for appliances(kWh)'
+            }
+
+            },
+
             tooltip: {
                 formatter: function() {
                     var s;
@@ -748,14 +762,14 @@ function update_dashboard_section(target){
                     }
                 },
                 title: {
-                    text: 'Energy',
+                    text: 'Temperature',
                     style: {
                         color: '#89A54E'
                     }
                 }
             }, { // Secondary yAxis
                 title: {
-                    text: 'Temperature',
+                    text: 'Energy',
                     style: {
                         color: '#4572A7'
                     }
@@ -836,7 +850,7 @@ function update_dashboard_section(target){
              type: 'column'
           },
           title: {
-             text: 'Ongoing contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
+             text: 'Contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
           },
           subtitle: {
              text: 'Source: SEIL IIT,Bombay'
@@ -887,7 +901,7 @@ function update_dashboard_section(target){
           type: 'column'
        },
        title: {
-          text: 'Ongoing contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
+          text: 'Contest for Week '+ jsonData.week + ' starting from '+jsonData.date 
        },
        subtitle: {
           text: 'Source: SEIL IIT,Bombay'
@@ -899,13 +913,13 @@ function update_dashboard_section(target){
        yAxis: {
           min: 0,
           title: {
-           text: 'Score for each lab ('+jsonData.unit+')'
+           text: 'Measure of Energy Consumption'
         }
      },
      tooltip: {
        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-       '<td style="padding:0"><b>{point.y:.1f} '+jsonData.unit+'</b></td></tr>',
+       '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
        footerFormat: '</table>',
        shared: true,
        useHTML: true
@@ -988,7 +1002,12 @@ function update_dashboard_section(target){
           text: 'Comparision of each lab with KReSIT Per Capita Energy Consumption'
        },
        xAxis: {
-          categories: ['Per Capita Consumption']
+          categories: ['Per Capita Energy Consumption']
+       },
+	yAxis: {
+         title: {
+           text: 'Per capita energy consumption deviation(%)'
+        }
        },
        credits: {
           enabled: false
@@ -999,7 +1018,33 @@ function update_dashboard_section(target){
 
    });
 }else{
+		var div = $("<div></div>");
+	div.addClass("component");
+	var data = '<p>Below is the list of defaulters</p>';
+	div.html(data);
+	var table = $("<table></table>");
+	var tr = $("<thead></thead>");
+	var theader = "<tr><th>Lab Name</th><th>Deviation(%)</th><th>PerCapita Energy(kWh)</th><th>Total Energy(Kwh)</th><th>Peak Power(kW)</th></tr>";
+	tr.append(theader);
+	table.append(tr);
+	var tbody = $("<tbody></tbody>");
+	var tr = $("<tr></tr>");
+	var td = "<td>GNL</td><td>19.7</td><td>41.631</td><td>287.71</td><td>15.746</td>";
+	tr.append(td);
+	tbody.append(tr);
+	var tr = $("<tr></tr>");
+	var td = "<td>ASL</td><td>14.5</td><td>35.63</td><td>227.73</td><td>10.74</td>";
+	tr.append(td);
+	tbody.append(tr);
+	var tr = $("<tr></tr>");
+	var td = "<td>Infolab</td><td>11.2</td><td>27.631</td><td>207.74</td><td>13.74</td>";
+	tr.append(td);
+	tbody.append(tr);
+	table.append(tbody);
+	div.append(table);
+	$('#container').html(div);
    
+
 }
 return true
 };

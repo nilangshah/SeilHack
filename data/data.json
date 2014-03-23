@@ -2,7 +2,7 @@
     "categories":["TotalPower","PCPower","PeakPower"],
     "week":1,
     "date":"22/03/2014",
-    "unit":"KwH",
+    "unit":"kWh",
     "data":[
             {
                 "lab":"Lab1",
