@@ -12,6 +12,7 @@
             }
 	});
 	$('#stats').click()
+	$('#appdata').click()
 	$('#dropdown').ddslick({
     width: 300,
     imagePosition: "left",
