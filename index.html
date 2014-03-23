@@ -126,7 +126,7 @@
 
          <div class="colleft">
 		<div id="dropDownDiv" >
-		<select id="dropDown" onclick="update_contest_section()" style="min-width:158px;">
+		<select id="dropDown"  style="min-width:158px;">
 			<option value="1">Week1</option>
 			<option value="2">Week2</option>
 			<option value="3">Week3</option>
@@ -545,10 +545,10 @@
 
 	$(target).parent().parent().children().removeClass('active')
 	$(target).parent().addClass('active')
-
-      if($(target).attr('id')=='stats'){
-	 var week = $.("#dropDown").val();
+	var week = $("#dropDown").val();
 	 console.log(week);
+      if($(target).attr('id')=='stats'){
+	 
          $.getJSON("data/data.json", function(jsonData) {
          var conditions = [];
          var map = {};
@@ -739,6 +739,11 @@
       }
       return true
    };
+
+$('#dropDown').on('change',function(){
+		console.log('#vnav .active a');
+		update_contest_section($('#vnav .active a'));
+	});
 </script>
 </body>
 

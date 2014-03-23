@@ -9,14 +9,16 @@
 
 	$('#stats').click()
 	$('#dropdown').ddslick({
-    data: ddData,
     width: 300,
     imagePosition: "left",
-    selectText: "Select your favorite social network",
+    selectText: "Select Contest Week",
     onSelected: function (data) {
         console.log(data);
     }
 });
+
+	
+	
 
 /*----------------------------------------------------*/
 /*	Flexslider
