@@ -719,6 +719,88 @@ function update_dashboard_section(target){
             series: values
         });
       });   
+    }else{
+      var dataFile = "data/temp.json"; 
+      $.getJSON(dataFile, function(jsonData) {
+         var days = [];
+         var values = [];
+         $.each(jsonData.components,function(entryIndex, entry) {
+            values.push(this.value);
+         });
+      $('#container1').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Energy Consumption in KReSIT vs Temperature '
+            },
+            subtitle: {
+                text: 'Source: SEIL IIT,Bombay'
+            },
+            xAxis: [{
+                categories: days
+            }],
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}'+jsonData.unit2,
+                    style: {
+                        color: '#89A54E'
+                    }
+                },
+                title: {
+                    text: 'Energy',
+                    style: {
+                        color: '#89A54E'
+                    }
+                }
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Temperature',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                labels: {
+                    format: '{value}'+jsonData.unit1,
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                x: 120,
+                verticalAlign: 'top',
+                y: 100,
+                floating: true,
+                backgroundColor: '#FFFFFF'
+            },
+            series: [{
+                name: 'Energy',
+                color: '#4572A7',
+                type: 'column',
+                yAxis: 1,
+                data: values[0],
+                tooltip: {
+                    valueSuffix: jsonData.unit1
+                }
+    
+            }, {
+                name: 'Temperature',
+                color: '#89A54E',
+                type: 'spline',
+                data: values[1],
+                tooltip: {
+                    valueSuffix: jsonData.unit2
+                }
+            }]
+        });
+      });
     }
  }
 
