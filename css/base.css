@@ -525,14 +525,15 @@ input[type="email"],
 textarea,
 select {
   	display: block;
-   padding: 18px 18px;
-   margin: 0 0 24px 0;
+   padding: 13px 13px;
+   margin: 0 0 12px 0;
+	width:110px;
    border: 0;
    outline: none;
    vertical-align: middle;
-   min-width: 250px;
+   min-width: 100px;
 	max-width: 100%;
-   font-size: 15px;
+   font-size: 13px;
    line-height: 24px;
 	color: #738182;
 	background: #CFD4D8;

@@ -1,0 +1,53 @@
+from connect import *
+from get_raw_data_kresit import *
+from datetime import date, timedelta
+import urllib
+import datetime
+
+
+if __name__ == '__main__':
+	client = establish_connection_to_host("10.129.28.202",27017) 
+	db = connect_to_database(client,"smartmeter")	
+	kresit_current_data=open("kresit_data_initial.csv","w+")
+	kresit_current_data.write("current,A1,A2,A3,voltage,power,frequency\n")
+#	print 
+	#Calculate consumption for today
+	d=date.today()
+	data_form=d.strftime("%m/%d/%Y")	
+	meter=get_data_on_last_200_epoch(db,"data",data_form)
+	count=int(len(meter))
+#	print count
+	str1 = "["
+	for i in range(count-300,count-1):		
+		current=float(meter[i]["values"]["A"])
+		A1=float(meter[i]["values"]["A1"])
+		A2=float(meter[i]["values"]["A2"])
+		A3=float(meter[i]["values"]["A3"])
+		voltage=float(meter[i]["values"]["V1"])
+		power=float(meter[i]["values"]["W"])/1000
+		frequency=float(meter[i]["values"]["F"])
+		time_temp=int(meter[i]["timestamp"])	
+		time=datetime.datetime.fromtimestamp(time_temp).strftime('%m/%d/%Y %H:%M:%S')	
+		kresit_current_data.write(str(current)+","+str(A1)+","+str(A2)+","+str(A3)+","+str(voltage)+","+str(power)+","+str(frequency)+"\n")
+		str1 =str1 + "{ \"time\":\""+str(time)+"\",\"current\":"+str(current)+", \"voltage\":"+str(voltage)+",\"power\":"+ str(power)+ ",\"frequency\":"+str(frequency)+"},"
+#\"A1\":"+str(A1)+",\"A2\":"+str(A2)+",\"A3\":"+str(A3)+",
+
+
+	current=float(meter[count-1]["values"]["A"])
+	A1=float(meter[count-1]["values"]["A1"])
+	A2=float(meter[count-1]["values"]["A2"])
+	A3=float(meter[count-1]["values"]["A3"])
+	voltage=float(meter[count-1]["values"]["V1"])
+	power=float(meter[count-1]["values"]["W"])/1000
+	frequency=float(meter[count-1]["values"]["F"])
+	time_temp=int(meter[count-1]["timestamp"])	
+	time=datetime.datetime.fromtimestamp(time_temp).strftime('%m/%d/%Y %H:%M:%S')	
+	kresit_current_data.write(str(current)+","+str(A1)+","+str(A2)+","+str(A3)+","+str(voltage)+","+str(power)+","+str(frequency)+"\n")
+	str1 = str1 + "{ \"time\":\""+str(time)+"\",\"current\":"+str(current)+", \"A1\":"+str(A1)+",\"A2\":"+str(A2)+",\"A3\":"+str(A3)+",\"voltage\":"+str(voltage)+",\"power\":"+ str(power)+ ",\"frequency\":"+str(frequency)+"}]"
+
+
+	print str1
+
+	kresit_current_data.close()
+
+

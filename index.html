@@ -167,7 +167,36 @@
 
             <h2>DashBoard</h2>
             <p class="desc">Check out Interesting analysis.</p>
+	  <div class="row">
+	<div id="datecontainer" class="colrem" style="margin-left:20%">
+	<p> Date: <input type="text" id="datepicker" ></p>
+	</div>
+	</div>
+	 <div id="master" class="row" style="display:none;">
+	
+<div id="detailcontainer1" class="colleft" style="margin-left:20%">
+	<p> Time-span:  <div id="dropDownDiv" >
+        
+	<select id="duration"> 
+		<option value="1">1 Month</option> <option value="2" selected="selected">2 Month</option>
+ 	</select> 
+ </div> </p>
+	</div>
+	<div id="detailcontainer2" class="colrem" >
+	<p> Parameter:  <div id="dropDownDiv2" >
 
+	<select id="parameter"> 
+		<option value="1">Current</option> <option value="2" >Voltage</option> <option value="3"selected="selected">Power</option>
+	 </select>
+	    </div> </p>
+	</div>
+
+
+
+
+
+
+	</div>
       <div class="row">
 	
          <div class="colleft">
@@ -178,6 +207,7 @@
                   <li class="active"><a id='appdata' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Appliance Data</a></li>
                   <li><a id='kresit' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Kresit Data</a></li>
                   <li><a id='realtime' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">Realtime Plot</a></li>
+		<li><a id='masterdetail' style="font-size: 17px;" href="#portfolio" onclick="return update_dashboard_section(this);">MasterDetail</a></li>
                   
                </ul> 
             
@@ -185,8 +215,8 @@
       
          </div>
 
-	        <div class="colrem">
-	
+	        <div  id = "chartsdiv"class="colrem">
+		
                <div id="container1" style="min-width: 55.0%"></div>
 
             </div>
@@ -345,6 +375,7 @@
       </div> <!-- Team Wrap End -->
 
       <!-- Testimonials -->
+	
       <div class="row">
 
          <div class="col full section-head">
@@ -542,11 +573,13 @@
    <!-- Java Script
    ================================================== -->
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
    <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
 
 
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
    <script src="js/scrollspy.js"></script>
    <script src="js/jquery.ddslick.min.js"></script>
    <script src="js/jquery.flexslider.js"></script>
@@ -563,17 +596,62 @@
    <script src="highcharts/js/modules/drilldown.js"></script>
    <script src="highcharts/js/modules/exporting.js"></script>
    <script type="text/javascript">
+var interval;
+    var chart;
+function formattedDate(date) {
+	 var d = new Date();
+    	d.setDate(d.getDate()-1);
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month,day, year].join('/');
+}
+
+$( "#datepicker" ).val(formattedDate());
+$( "#datepicker" ).datepicker({ maxDate: "-1d ",onSelect: function(selected,evnt) {
+         updateAb(selected);
+    } });
+
+function updateAb(value){     
+       //chart.redraw();
+	console.log($('#vnav .active a')[1]);
+	update_dashboard_section($('#vnav .active a')[1]);
+};
+
+
+var data = [];
+
+
+var resp;
 
 function update_dashboard_section(target){
+	
     $(target).parent().parent().children().removeClass('active')
     $(target).parent().addClass('active')
     if($(target).attr('id')=='realtime'){
-      var chart;
+	$('#datecontainer').show();
+	$('#master').hide();
+	
+	$.ajax({
+		type:"GET",
+		url:"pymongo/getRealData.php",
+		async:false,
+		success:function(response){
+			resp = $.parseJSON(response);
+		}
+	})
+  	
+	
       var maxPowerConsumption = 100;
       var minPowerConsumption = 77.38;
+   
         $('#container1').highcharts({
             chart: {
-                type: 'spline',
+                //type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -581,11 +659,30 @@ function update_dashboard_section(target){
     
                         // set up the updating of the chart each second
                         var series = this.series[0];
-                        setInterval(function() {
-                            var x = (new Date()).getTime(), // current time
-                                y = Math.random()*5+minPowerConsumption
-                            series.addPoint([x, y], true, true);
-                        }, 1000);
+			var series2= this.series[1];
+                        var series3= this.series[2];
+			var series4= this.series[3];
+                       interval = setInterval(function() {
+				//clearInterval(interval);
+				//return;
+                            var x = (new Date()).getTime() // current time
+			    $.ajax({
+				    type:"GET",
+				    url:"pymongo/getRealTimeData.php",
+				    async:false,
+				    success:function(response){
+					resp = $.parseJSON(response);
+					y = resp.power;
+		                        series.addPoint([x, y], true, true);
+		                        y = resp.current;
+		                        series2.addPoint([x, y], true, true);
+		                        y = resp.voltage;
+		                        series3.addPoint([x, y], true, true);
+		                        y = resp.frequency;
+		                        series4.addPoint([x, y], true, true);
+				    }
+			    })
+                        }, 2000);
                     }
                 }
             },
@@ -593,10 +690,11 @@ function update_dashboard_section(target){
                 text: 'Realtime Energy Consumption'
             },
             xAxis: {
-                type: 'datetime',
+		type:"datetime",
                 tickPixelInterval: 150
             },
             yAxis: {
+		min:0,
                 title: {
                     text: 'Power consumption(kW)'
                 },
@@ -619,27 +717,123 @@ function update_dashboard_section(target){
             exporting: {
                 enabled: false
             },
+	 plotOptions: {
+            series: {
+                marker: {
+                    enabled: false
+                }
+            }
+        },
             series: [{
-                name: 'Energy Consumption',
+                name: 'kW',
+		  lineWidth: 1,
+                data: (function() {
+		    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].power
+                        }); 
+                    }
+		    return data;
+                })()
+            },{
+                name: 'A',
+		  lineWidth: 1,
                 data: (function() {
                     // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    for (i = -19; i <= 0; i++) {
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
                         data.push({
-                            x: time + i * 1000,
-                            y: Math.random()*5+minPowerConsumption
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].current
+                        }); 
+                    }
+			return data;
+                })()
+            },{
+                name: 'V',
+		  lineWidth: 1,
+                data: (function() {
+                    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].voltage
+                        }); 
+                    }
+			return data;
+                })()
+            },{
+                name: 'F',
+		  lineWidth: 1,
+                data: (function() {
+                    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].frequency
                         }); 
                     }
                     return data;
                 })()
             }]
         });
+/*
+,{
+                name: 'A1',
+		  lineWidth: 1,
+                data: (function() {
+                    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].A1
+                        }); 
+                    }
+                    return data;
+                })()
+            },{
+                name: 'A2',
+		  lineWidth: 1,
+                data: (function() {
+                    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].A2
+                        }); 
+                    }
+                    return data;
+                })()
+            },{
+                name: 'A3',
+		  lineWidth: 1,
+                data: (function() {
+                    // generate an array of random data
+                    var data = [];
+                    for (i = 0; i < 300; i++) {
+                        data.push({
+                            x: new Date(resp[i].time).getTime(),
+                            y: resp[i].A3
+                        }); 
+                    }
+                    return data;
+                })()
+            }
+*/
     }else if($(target).attr('id')=='appdata'){
-      var dataFile = "data/appliances.json"; 
+	$('#datecontainer').show();
+	$('#master').hide();
+	clearInterval(interval);     
+	 var dataFile = "pymongo/makeGraphJson.php?date="+$('#datepicker').val(); 
       $.getJSON(dataFile, function(jsonData) {
-         var days = [];
+	 var days = [];
          var map = {};
          var averages = [];
          var tmap = {};
@@ -648,13 +842,12 @@ function update_dashboard_section(target){
          $.each(jsonData.days,function(entryIndex, entry) {
             days[entryIndex]= this;
          });
-         console.log(days)
+        
          $.each(jsonData.components,function(entryIndex, entry) {
             map[this.name]=this.values;
             tmap[this.name]=this.total;
          });
-         console.log(map)
-         console.log(tmap)
+        
          index = 0;
          $.each( map, function( key, value ) {
             values[index] = {type:'column',name:key,data:value};
@@ -735,13 +928,20 @@ function update_dashboard_section(target){
             series: values
         });
       });   
-    }else{
-      var dataFile = "data/temp.json"; 
+    }else if($(target).attr('id')=='kresit'){
+	$('#datecontainer').show();
+	$('#master').hide();
+	
+	clearInterval(interval);
+      var dataFile = "pymongo/Kresit-data-json.php?date="+$('#datepicker').val(); 
       $.getJSON(dataFile, function(jsonData) {
          var days = [];
          var values = [];
          $.each(jsonData.components,function(entryIndex, entry) {
             values.push(this.value);
+         });
+	 $.each(jsonData.days,function(entryIndex, entry) {
+            days[entryIndex]=this;
          });
       $('#container1').highcharts({
             chart: {
@@ -817,11 +1017,277 @@ function update_dashboard_section(target){
             }]
         });
       });
-    }
+    }else{
+	$('#datecontainer').hide();
+	$('#master').show();
+	clearInterval(interval);     
+
+	/*for(x=0;x<$('#duration').val()*7; x++)
+	{
+		data.push(Math.random());
+	}*/
+	
+	update_data();
+		var masterChart,
+        detailChart;
+    
+    $(document).ready(function() {
+    
+    
+        // create the master chart
+        function createMaster() {
+            masterChart = $('#master-container1').highcharts({
+                chart: {
+                    reflow: false,
+                    borderWidth: 0,
+                    backgroundColor: null,
+                    marginLeft: 50,
+                    marginRight: 20,
+                    zoomType: 'x',
+                    events: {
+    
+                        // listen to the selection event on the master chart to update the
+                        // extremes of the detail chart
+                        selection: function(event) {
+                            var extremesObject = event.xAxis[0],
+                                min = extremesObject.min,
+                                max = extremesObject.max,
+                                detailData = [],
+                                xAxis = this.xAxis[0];
+    
+                            // reverse engineer the last part of the data
+                            jQuery.each(this.series[0].data, function(i, point) {
+                                if (point.x > min && point.x < max) {
+                                    detailData.push({
+                                        x: point.x,
+                                        y: point.y
+                                    });
+                                }
+                            });
+    
+                            // move the plot bands to reflect the new detail span
+                            xAxis.removePlotBand('mask-before');
+                            xAxis.addPlotBand({
+                                id: 'mask-before',
+                                from: (new Date()).setDate((new Date()).getDate() - ($('#duration').val() * 30)),
+                                to: min,
+                                color: 'rgba(0, 0, 0, 0.2)'
+                            });
+    
+                            xAxis.removePlotBand('mask-after');
+                            xAxis.addPlotBand({
+                                id: 'mask-after',
+                                from: max,
+                                to: new Date(),
+                                color: 'rgba(0, 0, 0, 0.2)'
+                            });
+    
+    
+                            detailChart.series[0].setData(detailData);
+    
+                            return false;
+                        }
+                    }
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    type: 'datetime',
+                    showLastTickLabel: true,
+                    maxZoom: 14 * 24 * 3600000, // fourteen days
+                    plotBands: [{
+                        id: 'mask-before',
+                        from: (new Date()).setDate((new Date()).getDate() - ($('#duration').val() * 30)),
+                        to: (new Date()).setDate((new Date()).getDate() - ($('#duration').val() * 20)),
+                        color: 'rgba(0, 0, 0, 0.2)'
+                    }],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    gridLineWidth: 0,
+                    labels: {
+                        enabled: false
+                    },
+                    title: {
+                        text: null
+                    },
+                    min: 0.6,
+                    showFirstLabel: false
+                },
+                tooltip: {
+                    formatter: function() {
+                        return false;
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        fillColor: {
+                            linearGradient: [0, 0, 0, 70],
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, 'rgba(255,255,255,0)']
+                            ]
+                        },
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+    
+                series: [{
+                    type: 'area',
+                    name: "Time vs "+$('#parameter').find(':selected').text(),
+                    pointInterval: 3600 * 1000,
+                    pointStart: (new Date()).setDate((new Date()).getDate() - ($('#duration').val()*30)),
+                    data: data
+                }],
+    
+                exporting: {
+                    enabled: false
+                }
+    
+            }, function(masterChart) {
+                createDetail(masterChart)
+            })
+            .highcharts(); // return chart instance
+        }
+    
+        // create the detail chart
+        function createDetail(masterChart) {
+    
+            // prepare the detail chart
+            var detailData = [],
+                detailStart = (new Date()).setDate((new Date()).getDate() - 30);
+    
+            jQuery.each(masterChart.series[0].data, function(i, point) {
+                if (point.x >= detailStart) {
+                    detailData.push(point.y);
+                }
+            });
+    
+            // create a detail chart referenced by a global variable
+            detailChart = $('#detail-container1').highcharts({
+                chart: {
+                    marginBottom: 120,
+                    reflow: false,
+                    marginLeft: 50,
+                    marginRight: 20,
+                    style: {
+                        position: 'absolute'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'Historic data of '+$('#parameter').find(':selected').text()+' over time'
+                },
+                subtitle: {
+                    text: 'Select an area by dragging across the lower chart'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    maxZoom: 0.1
+                },
+                tooltip: {
+                    formatter: function() {
+                        var point = this.points[0];
+                        return '<b>'+ point.series.name +'</b><br/>'+
+                            Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>'+
+                            $('#parameter').find(':selected').text()+' = '+ Highcharts.numberFormat(point.y, 2);
+                    },
+                    shared: true
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 3
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Time vs '+$('#parameter').find(':selected').text(),
+                    pointStart: detailStart,
+                    pointInterval: 3600 * 1000,
+                    data: detailData
+                }],
+    
+                exporting: {
+                    enabled: false
+                }
+    
+            }).highcharts(); // return chart
+        }
+    
+        // make the container smaller and add a second container for the master chart
+	$('#chartsdiv').html('');
+	var $chartdiv = $('#chartsdiv');
+	var $container = $('<div id="container1">')
+		.css('position', 'relative')          
+		.appendTo($chartdiv);
+            
+    
+        var $detailContainer = $('<div id="detail-container1">')
+            .appendTo($container);
+    
+        var $masterContainer = $('<div id="master-container1">')
+            .css({ position: 'absolute', top: 300, height: 100 })
+            .appendTo($container);
+    
+        // create master and in its callback, create the detail chart
+        createMaster();
+    });
+  
+	}
  }
 
 
-
+function update_data(){
+	$.ajax({
+		type:"GET",
+		url:"pymongo/getHistoricalData.php?duration="+$('#duration').val()+"&parameter="+$('#parameter').val(),
+		async:false,
+		success:function(response){
+			data = response.split(",");
+			for(x in data)
+				data[x] = parseFloat(data[x])
+			
+			
+		}
+	});
+ 		
+}
 
    function update_contest_section(target){
 
@@ -939,7 +1405,7 @@ function update_dashboard_section(target){
    $.getJSON("data/winner.json", function(jsonData) {
       var victories = {}
       var values = []
-      console.log(jsonData)
+     
       $.each(jsonData.winners,function(entryIndex, entry) {
          victories[this.lab] = this.winnings;
       });
@@ -1063,6 +1529,19 @@ return true
 $('#dropDown').on('change',function(){
   console.log('#vnav .active a');
   update_contest_section($('#vnav .active a'));
+});
+$('#parameter').on('change',function(){
+  console.log($('#vnav .active a'));
+
+	   
+	update_dashboard_section($('#masterdetail'));
+  	
+});
+$('#duration').on('change',function(){
+  console.log($('#vnav .active a'));
+	   
+	update_dashboard_section($('#masterdetail'));
+  	
 });
 </script>
 </body>
